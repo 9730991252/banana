@@ -98,7 +98,7 @@
     
     <div class="containt_box">
         <div><label for="danda_weight">दांडा वजन :</label></div>
-        <div><input type="number" name="danda_weight" id="weight" class="form-control" required></div>
+        <div><input type="number" name="danda_weight" id="danda_weight" class="form-control" readonly></div>
     </div>
     
     <div class="containt_box">
@@ -108,7 +108,7 @@
     
     <div class="containt_box">
         <div><label for="prise">दर :</label></div>
-        <div><input type="number" name="prise" id="prise" class="form-control" required></div>
+        <div><input type="number" oninput="calculate_prise()" name="prise" id="prise" class="form-control" required></div>
     </div>
     
     <div class="containt_box">
@@ -143,10 +143,26 @@
     function add_wasteage(old_weight,wasteage_input,add_input){
         from_input = document.getElementById(old_weight).value;
         input = document.getElementById(wasteage_input).value;
+        console.log(a)
         a = Number(from_input) + Number(input)
         document.getElementById(add_input).value = a
+        danda_weight = (a / 100) * 8
+        document.getElementById('danda_weight').value = danda_weight
+        
+        total_weight = a + danda_weight
+        document.getElementById('total_weight').value = total_weight
     }
-
+    function calculate_prise(){
+        total_weight = document.getElementById('total_weight').value;
+        prise = document.getElementById('prise').value;
+        amount = prise * Math.floor(total_weight)
+        document.getElementById('amount').value=amount
+        
+        labor_amount = total_weight * 0.4 
+        labor_amount = labor_amount.toFixed(0)
+        document.getElementById('labor').value = labor_amount
+    }
+    
     function farmer_check(){
     name = document.getElementById('farmer_name').value;
     address = document.getElementById('farmer_add').value;
