@@ -93,7 +93,7 @@ def profile(request):
         return redirect('login')
     
 @csrf_exempt
-def farmer_bill(request):
+def new_farmer_bill(request):
     if request.session.has_key('owner_mobile'):
         mobile = request.session['owner_mobile']
         shope = Shope.objects.filter(mobile=mobile).first()
@@ -111,16 +111,62 @@ def farmer_bill(request):
             ).save()
             selected_farmer_status = 1
             farmer = Farmer.objects.filter(shope_id=shope.id).last()
-            return redirect('farmer_bill')
         if 'select_farmer'in request.POST:
-            farmer_id = request.POST.get('farmer_id')
+            fid = request.POST.get('farmer_id')
             selected_farmer_status = 1
-            farmer = Farmer.objects.filter(id=farmer_id).first()
+            farmer = Farmer.objects.filter(id=fid).first()
+        if 'complete_bill'in request.POST:
+            farmer_id = request.POST.get('farmer_id')
+            shope_id = shope.id
+            vehicale_number = request.POST.get('vehicale_number')
+            weight = request.POST.get('weight')
+            empty_box = request.POST.get('empty_box')
+            wasteage = request.POST.get('wasteage')
+            prise = request.POST.get('prise')
+            total_amount = request.POST.get('total_amount')
+            bill_number = Farmer_bill.objects.filter(shope_id=shope_id).count()
+            bill_number += 1
+            Farmer_bill(
+                farmer_id=farmer_id,
+                shope_id=shope_id,
+                vehicale_number=vehicale_number,
+                weight=weight,
+                empty_box=empty_box,
+                wasteage=wasteage,
+                prise=prise,
+                total_amount=total_amount,
+                bill_number=bill_number
+            ).save()
+            f = Farmer_bill.objects.filter(shope_id=shope_id).last()
+            return redirect(f'/owner/complete_view_bill/{f.id}')
         context={
             'shope':shope,
             'selected_farmer_status':selected_farmer_status,
             'farmer':farmer
         }
+        return render(request, 'owner/new_farmer_bill.html', context)
+    else:
+        return redirect('login')
+    
+def farmer_bill(request):
+    if request.session.has_key('owner_mobile'):
+        mobile = request.session['owner_mobile']
+        shope = Shope.objects.filter(mobile=mobile).first()
+        context={
+            'shope':shope,
+            'bill':Farmer_bill.objects.filter(shope_id=shope.id)
+        }
         return render(request, 'owner/farmer_bill.html', context)
+    else:
+        return redirect('login')
+    
+def complete_view_bill(request, id):
+    if request.session.has_key('owner_mobile'):
+        mobile = request.session['owner_mobile']
+        shope = Shope.objects.filter(mobile=mobile).first()
+        context={
+            'shope':shope
+        }
+        return render(request, 'owner/owner_home.html', context)
     else:
         return redirect('login')
