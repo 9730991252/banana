@@ -164,9 +164,11 @@ def view_farmer_bill(request, id):
     if request.session.has_key('owner_mobile'):
         mobile = request.session['owner_mobile']
         shope = Shope.objects.filter(mobile=mobile).first()
+        bill = Farmer_bill.objects.filter(id=id).first()
+        
         context={
             'shope':shope,
-            'bill':Farmer_bill.objects.filter(id=id).first()
+            'bill':bill
         }
         return render(request, 'owner/view_farmer_bill.html', context)
     else:
