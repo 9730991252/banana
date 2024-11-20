@@ -138,7 +138,7 @@ def new_farmer_bill(request):
                 bill_number=bill_number
             ).save()
             f = Farmer_bill.objects.filter(shope_id=shope_id).last()
-            return redirect(f'/owner/complete_view_bill/{f.id}')
+            return redirect(f'/owner/view_farmer_bill/{f.id}')
         context={
             'shope':shope,
             'selected_farmer_status':selected_farmer_status,
@@ -160,13 +160,14 @@ def farmer_bill(request):
     else:
         return redirect('login')
     
-def complete_view_bill(request, id):
+def view_farmer_bill(request, id):
     if request.session.has_key('owner_mobile'):
         mobile = request.session['owner_mobile']
         shope = Shope.objects.filter(mobile=mobile).first()
         context={
-            'shope':shope
+            'shope':shope,
+            'bill':Farmer_bill.objects.filter(id=id).first()
         }
-        return render(request, 'owner/owner_home.html', context)
+        return render(request, 'owner/view_farmer_bill.html', context)
     else:
         return redirect('login')

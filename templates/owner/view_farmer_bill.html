@@ -1,0 +1,109 @@
+{% extends 'home/base.html' %}
+{% block head %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js" integrity="sha512-pdCVFUWsxl1A4g0uV6fyJ3nrnTGeWnZN2Tl/56j45UvZ1OMdm9CIbctuIHj+yBIRTUUyv6I9+OivXj4i0LPEYA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% endblock head %}
+{% block content %}
+{% include 'include/alert.html' %}
+<div class="hide">
+
+    <div>
+        welcome - {{shope.owner_name}}
+    </div>
+    {% include 'include/owner/owner_menu.html' %}
+</div>
+<style media="print">
+    .hide{
+        display: none;
+    }
+</style>
+<style>
+    .main_box{
+        width: 400px;
+        border: 2px solid black;
+        margin:  0 auto;
+        text-align: center;
+    }
+    .shope_name{
+        text-transform: uppercase;
+    }
+    .address{
+        font-weight: 500;
+        width: 380px;
+    }
+
+    .flex{
+        display: flex;
+        justify-content: center;
+    }
+    .vehicale_number{
+        text-transform: uppercase;
+    }
+    .contact_details{
+        line-height: 0px;
+    }
+    .containt_box{
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        border-top: 1px solid black;
+        .div1{
+            border-bottom: 1px solid black;
+            border-right: 1px solid black;
+            text-align: start;
+            padding-left: 5px;
+        }
+        .div2{
+            text-align: center;
+            border-bottom: 1px solid black;
+        }
+    }
+</style>
+<div id="canvas">
+
+
+
+    <div class="main_box">
+        <div class="shope_name"><h5><b>{{shope.shope_name}}</b></h5></div>
+        <div class="address"><p>{{shope.address}}</p></div>
+        <div class="contact_details"><p>{{shope.contact_details}}</p></div>
+        <div class="flex p-2" style="justify-content: space-between;">
+            <div>नं. <b>{{bill.bill_number}}</b></div>
+            <div>{{bill.added_date}}</div>
+            <div class="vehicale_number">{{bill.vehicale_number}}</div>
+        </div>
+        <div class="flex p-2" style="line-height: 0px; justify-content: space-between;">
+            <div>{{bill.farmer.name}}</div>
+            <div>मोबा.नं. {{bill.farmer.mobile}}</div>
+        </div>
+        <div>{{bill.farmer.address}}</div>
+
+        <div class="containt_box">
+            <div class="div1">मालाचे वजन :</div>
+            <div class="div2">{{bill.weight}}</div>
+            <div class="div1">मोकळे बॉक्स वजा :</div>
+            <div class="div2">{{bill.empty_box}}</div>
+        </div>
+    </div>
+
+
+
+
+
+</div>
+<br>
+<div class="text-center hide">
+    <button class="btn btn-primary" onclick="createPDF()">download pdf</button>
+</div>
+<script>
+function createPDF() {
+    var pdf = document.getElementById("canvas");
+    var opt = {
+        margin: 1,
+        filename: 'bill.pdf',
+        image: { type: 'jpeg', quality: 1 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'a4', orientaion: 'portrait' }
+    };
+    html2pdf().set(opt).from(pdf).save();
+}
+</script>
+{% endblock content %}
