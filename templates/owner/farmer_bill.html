@@ -48,6 +48,10 @@
             width: 100%;
         }
     }
+    .default_input{
+        pointer-events: none;
+        background-color: rgba(255, 255, 255, 0);
+    }
 </style>
 
 <div class="farmer_detail">
@@ -73,67 +77,71 @@
 
     <div class="containt_box">
         <div><label for="weight">मालाचे वजन :</label></div>
-        <div><input type="number" name="weight" oninput="add_empty_box('empty_box', 'empty_box_weight'),add_wasteage('empty_box_weight','wasteage','wasteage_weight')" id="weight" class="form-control" required></div>
+        <div><input type="number" name="weight" oninput="check_zero('weight'),add_empty_box('empty_box', 'empty_box_weight'),add_wasteage('empty_box_weight','wasteage','wasteage_weight')" id="weight" class="form-control" required></div>
     </div>
     
     <div class="containt_box">
         <div><label for="empty_box">मोकळे बॉक्स वजा :</label></div>
-        <div><input type="number" name="empty_box" oninput="add_empty_box('empty_box', 'empty_box_weight')" id="empty_box" class="form-control" required></div>
+        <div><input type="number" name="empty_box" oninput="check_zero('empty_box'),add_empty_box('empty_box', 'empty_box_weight')" id="empty_box" class="form-control" required></div>
     </div>
     
     <div class="containt_box">
         <div><label for="weight">मालाचे वजन :</label></div>
-        <div><input type="number" id="empty_box_weight" class="form-control" readonly></div>
+        <div><input class=" form-control default_input" type="number" id="empty_box_weight" class=" form-control default_input " readonly></div>
     </div>
     
     <div class="containt_box">
         <div><label for="wasteage">वेस्टेज :</label></div>
-        <div><input type="number" name="wasteage" oninput="add_wasteage('empty_box_weight','wasteage','wasteage_weight')" id="wasteage" class="form-control" required></div>
+        <div><input type="number" name="wasteage" oninput="check_zero('wasteage'),add_wasteage('empty_box_weight','wasteage','wasteage_weight')" id="wasteage" class="form-control" required></div>
     </div>
         
     <div class="containt_box">
         <div><label for="weight">मालाचे वजन :</label></div>
-        <div><input type="number" id="wasteage_weight" class="form-control" readonly></div>
+        <div><input type="number" id="wasteage_weight" class="form-control default_input" readonly></div>
     </div>
     
     <div class="containt_box">
         <div><label for="danda_weight">दांडा वजन :</label></div>
-        <div><input type="number" name="danda_weight" id="danda_weight" class="form-control" readonly></div>
+        <div><input type="number" name="danda_weight" id="danda_weight" class="form-control default_input" readonly></div>
     </div>
     
     <div class="containt_box" style="font-weight: 700;">
         <div><label for="total_weight">एकुण मालाचे वजन :</label></div>
-        <div><input type="number" style="font-weight: 700;" name="total_weight" id="total_weight" class="form-control" readonly></div>
+        <div><input type="number" style="font-weight: 700;" name="total_weight" id="total_weight" class="form-control default_input" readonly></div>
     </div>
     
     <div class="containt_box" style="font-weight: 700;">
         <div><label for="prise">दर :</label></div>
-        <div><input type="number" style="font-weight: 700;" oninput="calculate_prise()" name="prise" id="prise" class="form-control" required></div>
+        <div><input type="number" style="font-weight: 700;" oninput="check_zero('prise'),calculate_prise()" name="prise" id="prise" class="form-control " required></div>
     </div>
     
     <div class="containt_box">
-        <div><label for="amount">रक्कम :</label></div>
-        <div><input type="number" name="amount" id="amount" class="form-control" required></div>
+        <div><label for="amount" style="font-weight: 700;">रक्कम :</label></div>
+        <div><input type="number" style="font-weight: 700;" name="amount" id="amount" class=" default_input form-control" required></div>
     </div>
     
     <div class="containt_box">
         <div><label for="labor">लेबर वजा :</label></div>
-        <div><input type="number" name="labor" id="labor" class="form-control" required></div>
+        <div><input type="number" name="labor" id="labor" class=" default_input form-control" readonly></div>
     </div>
     
-    <div class="containt_box">
-        <div><label for="advance">अॅडव्हांस वजा</label></div>
-        <div><input type="number" name="advance" id="advance" value="0" class="form-control" required></div>
-    </div>
-    
-    <div class="containt_box">
+    <div class="containt_box" style="font-weight: 700;">
         <div><label for="total_amount">एकुण रक्कम</label></div>
-        <div><input type="number" name="total_amount" id="total_amount" value="0" class="form-control" required></div>
+        <div><input type="number" style="font-weight: 700;" name="total_amount" id="total_amount" value="0" class=" default_input form-control" required></div>
     </div>
 
 </div>
 
 <script>
+    function check_zero(input_id){
+        input = document.getElementById(input_id).value
+        input = Number(input)
+        if(input < 0){
+            input = document.getElementById(input_id).value = 0
+        }
+        if(input > 0){
+        }
+    }
     function add_empty_box(input_id, add_input_id){
         from_input = document.getElementById('weight').value;
         input = document.getElementById(input_id).value;
@@ -161,6 +169,9 @@
         labor_amount = total_weight * 0.4 
         labor_amount = labor_amount.toFixed(0)
         document.getElementById('labor').value = labor_amount
+
+        total_amount = amount - labor_amount
+        document.getElementById('total_amount').value = total_amount
     }
     
     function farmer_check(){
