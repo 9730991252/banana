@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from sunil.models import *
 from .models import *
 from django.views.decorators.csrf import csrf_exempt
+import math
 # Create your views here.
 def owner_home(request):
     if request.session.has_key('owner_mobile'):
@@ -123,6 +124,7 @@ def new_farmer_bill(request):
             empty_box = request.POST.get('empty_box')
             wasteage = request.POST.get('wasteage')
             prise = request.POST.get('prise')
+            labor_amount = request.POST.get('labor')
             total_amount = request.POST.get('total_amount')
             bill_number = Farmer_bill.objects.filter(shope_id=shope_id).count()
             bill_number += 1
@@ -135,7 +137,8 @@ def new_farmer_bill(request):
                 wasteage=wasteage,
                 prise=prise,
                 total_amount=total_amount,
-                bill_number=bill_number
+                bill_number=bill_number,
+                labor_amount=labor_amount
             ).save()
             f = Farmer_bill.objects.filter(shope_id=shope_id).last()
             return redirect(f'/owner/view_farmer_bill/{f.id}')
@@ -154,7 +157,7 @@ def farmer_bill(request):
         shope = Shope.objects.filter(mobile=mobile).first()
         context={
             'shope':shope,
-            'bill':Farmer_bill.objects.filter(shope_id=shope.id)
+            'bill':Farmer_bill.objects.filter(shope_id=shope.id).order_by('-id')
         }
         return render(request, 'owner/farmer_bill.html', context)
     else:
@@ -165,10 +168,19 @@ def view_farmer_bill(request, id):
         mobile = request.session['owner_mobile']
         shope = Shope.objects.filter(mobile=mobile).first()
         bill = Farmer_bill.objects.filter(id=id).first()
-        
+        empty_box_weight = (bill.weight - bill.empty_box)
+        wasteage_weight = (empty_box_weight + bill.wasteage)
+        danda_weight = (wasteage_weight / 100) * 8
+        total_weight = (wasteage_weight + danda_weight)
+        amount = (bill.prise * math.floor(total_weight))
         context={
             'shope':shope,
-            'bill':bill
+            'bill':bill,
+            'empty_box_weight':empty_box_weight,
+            'wasteage_weight':wasteage_weight,
+            'danda_weight':danda_weight,
+            'total_weight':total_weight,
+            'amount':amount
         }
         return render(request, 'owner/view_farmer_bill.html', context)
     else:

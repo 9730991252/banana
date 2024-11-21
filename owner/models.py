@@ -26,6 +26,7 @@ class Farmer_bill(models.Model):
     prise = models.FloatField()
     total_amount = models.FloatField()
     paid_status = models.IntegerField(default=0)
+    labor_amount = models.FloatField(null=True)
     date = models.DateField(auto_now_add=True)
     bill_number = models.IntegerField(null=True)
     added_date = models.DateTimeField(auto_now_add=True)

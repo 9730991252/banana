@@ -84,31 +84,31 @@
             <div class="div2">{{bill.empty_box}}</div>
 
             <div class="div1">मालाचे वजन :</div>
-            <div class="div2"></div>
+            <div class="div2">{{empty_box_weight}}</div>
             
             <div class="div1">वेस्टेज :</div>
             <div class="div2">{{bill.wasteage}}</div>
 
             <div class="div1">मालाचे वजन :</div>
-            <div class="div2"></div>
+            <div class="div2">{{wasteage_weight}}</div>
             
             <div class="div1">दांडा वजन :</div>
-            <div class="div2"></div>
+            <div class="div2">{{danda_weight}}</div>
             
             <div class="div1">एकुण मालाचे वजन :</div>
-            <div class="div2"></div>
+            <div class="div2">{{total_weight}}</div>
 
             <div class="div1">दर :</div>
             <div class="div2">{{bill.prise}}</div>
 
             <div class="div1">रक्कम :</div>
-            <div class="div2"></div>
+            <div class="div2">{{amount}}</div>
             
             <div class="div1">लेबर वजा :</div>
-            <div class="div2"></div>
+            <div class="div2">{{bill.labor_amount}}</div>
 
-            <div class="div1">एकुण रक्कम </div>
-            <div class="div2">{{bil.total_amount}}</div>
+            <div class="div1 mb-3">एकुण रक्कम </div>
+            <div class="div2 mb-3">{{bill.total_amount}}</div>
         </div>
     </div>
 
@@ -126,8 +126,8 @@ function createPDF() {
     var pdf = document.getElementById("canvas");
     var opt = {
         margin: 1,
-        filename: 'bill.pdf',
-        image: { type: 'jpeg', quality: 1 },
+        filename: '{{bill.farmer.name}}.pdf',
+        image: { type: 'jpeg', quality: 50 },
         html2canvas: { scale: 2 },
         jsPDF: { unit: 'in', format: 'a4', orientaion: 'portrait' }
     };
