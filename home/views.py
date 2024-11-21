@@ -26,3 +26,6 @@ def login(request):
                 return redirect('/login/')
     return render(request, 'home/login.html')
 
+def owner_logout(request):
+    del request.session['owner_mobile']
+    return redirect('/')

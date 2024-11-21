@@ -7,9 +7,9 @@
 <div class="hide">
 
     <div>
-        welcome - {{shope.owner_name}}
+        welcome - {{e.name}}
     </div>
-    {% include 'include/owner/owner_menu.html' %}
+    {% include 'include/office/office_menu.html' %}
 </div>
 <style media="print">
     .hide{
@@ -62,9 +62,9 @@
 
 
     <div class="main_box">
-        <div class="shope_name"><h5><b>{{shope.shope_name}}</b></h5></div>
-        <div class="address"><p>{{shope.address}}</p></div>
-        <div class="contact_details"><p>{{shope.contact_details}}</p></div>
+        <div class="shope_name"><h5><b>{{e.shope.shope_name}}</b></h5></div>
+        <div class="address"><p>{{e.shope.address}}</p></div>
+        <div class="contact_details"><p>{{e.shope.contact_details}}</p></div>
         <div class="flex p-2" style="justify-content: space-between;">
             <div>नं. <b>{{bill.bill_number}}</b></div>
             <div>{{bill.added_date}}</div>

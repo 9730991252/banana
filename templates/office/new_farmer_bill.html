@@ -4,10 +4,10 @@
 {% block content %}
 {% include 'include/alert.html' %}
 <div>
-    welcome - {{shope.owner_name}}
+    welcome - {{e.name}}
 </div>
 
-{% include 'include/owner/owner_menu.html' %}
+{% include 'include/office/office_menu.html' %}
 
 <style>
     .farmer_detail{
@@ -189,7 +189,7 @@
             name:name,
                     address:address,
                     mobile:mobile,
-                    shope_id:'{{shope.id}}'
+                    shope_id:'{{e.shope.id}}'
                 },
                     success: function(res){
                         $("#farmer_result").html(res.t)
