@@ -4,6 +4,7 @@
 {% endblock head %}
 {% block content %}
 {% include 'include/alert.html' %}
+{% load static %}
 <div class="hide">
 
     <div>
@@ -19,12 +20,17 @@
 <style>
     .main_box{
         width: 400px;
-        border: 2px solid black;
         margin:  0 auto;
         text-align: center;
+        color: black;
+        div{
+            z-index: 1321231;
+        }
     }
     .shope_name{
         text-transform: uppercase;
+        z-index: 1;
+        color: rgb(255, 0, 0);
     }
     .address{
         font-weight: 500;
@@ -42,11 +48,18 @@
         line-height: 0px;
     }
     .containt_box{
+        position: relative;
         display: grid;
         grid-template-columns: 2fr 1fr;
         border-top: 1px solid black;
+        
+        div{
+            z-index: 321321;
+        }
+
         .div1{
             border-bottom: 1px solid black;
+            border-left: 1px solid black;
             border-right: 1px solid black;
             text-align: start;
             padding-left: 5px;
@@ -54,6 +67,20 @@
         .div2{
             text-align: center;
             border-bottom: 1px solid black;
+            border-right: 1px solid black;
+        }
+        .detail{
+            grid-column-start: 1;
+            grid-column-end: 3;
+            grid-row-start: 1;
+            grid-row-end: 1;
+            text-align: center;
+        }
+        img{
+            position: absolute;
+            opacity: 0.3;
+            width: 100%;
+            z-index: -533;
         }
     }
 </style>
@@ -66,7 +93,7 @@
         <div class="address"><p>{{e.shope.address}}</p></div>
         <div class="contact_details"><p>{{e.shope.contact_details}}</p></div>
         <div class="flex p-2" style="justify-content: space-between;">
-            <div>नं. <b>{{bill.bill_number}}</b></div>
+            <div>बिल नं. <b>{{bill.bill_number}}</b></div>
             <div>{{bill.added_date}}</div>
             <div class="vehicale_number">{{bill.vehicale_number}}</div>
         </div>
@@ -75,40 +102,50 @@
             <div>मोबा.नं. {{bill.farmer.mobile}}</div>
         </div>
         <div>{{bill.farmer.address}}</div>
-
+        
         <div class="containt_box">
-            <div class="div1">मालाचे वजन :</div>
+            <!-- img src="{% static 'img/banana.jpg' %}" alt=" " -->
+            
+            <div class="div1 detail">तपशील</div>
+            
+            <div class="div1">गाडीचे एकुण वजन</div>
+            <div class="div2">{{bill.total_vehicale_weight}}</div>
+
+            <div class="div1">रिकाम्या गाडीचे वजन</div>
+            <div class="div2">{{bill.empty_vehicale_weight}}</div>
+
+            <div class="div1">मालाचे वजन </div>
             <div class="div2">{{bill.weight}}</div>
 
-            <div class="div1">मोकळे बॉक्स वजा :</div>
+            <div class="div1">मोकळे बॉक्स वजा </div>
             <div class="div2">{{bill.empty_box}}</div>
 
-            <div class="div1">मालाचे वजन :</div>
+            <div class="div1">मालाचे वजन </div>
             <div class="div2">{{empty_box_weight}}</div>
             
-            <div class="div1">वेस्टेज :</div>
+            <div class="div1">वेस्टेज </div>
             <div class="div2">{{bill.wasteage}}</div>
 
-            <div class="div1">मालाचे वजन :</div>
+            <div class="div1">मालाचे वजन </div>
             <div class="div2">{{wasteage_weight}}</div>
             
-            <div class="div1">दांडा वजन :</div>
+            <div class="div1">दांडा वजन </div>
             <div class="div2">{{danda_weight}}</div>
             
-            <div class="div1">एकुण मालाचे वजन :</div>
+            <div class="div1">एकुण मालाचे वजन </div>
             <div class="div2">{{total_weight}}</div>
 
-            <div class="div1">दर :</div>
-            <div class="div2">{{bill.prise}}</div>
+            <div class="div1">दर </div>
+            <div style="font-weight: 700; color: red;" class="div2">{{bill.prise}}</div>
 
-            <div class="div1">रक्कम :</div>
+            <div class="div1">रक्कम </div>
             <div class="div2">{{amount}}</div>
             
-            <div class="div1">लेबर वजा :</div>
-            <div class="div2">{{bill.labor_amount}}</div>
+            <div class="div1">लेबर वजा </div>
+            <div style="font-weight: 700; color: red;"  class="div2">{{bill.labor_amount}}</div>
 
-            <div class="div1 mb-3">एकुण रक्कम </div>
-            <div class="div2 mb-3">{{bill.total_amount}}</div>
+            <div style="font-weight: 700;" class="div1 mb-3">एकुण रक्कम </div>
+            <div style="font-weight: 700;" class="div2 mb-3">{{bill.total_amount}}</div>
         </div>
     </div>
 

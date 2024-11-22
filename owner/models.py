@@ -20,6 +20,8 @@ class Farmer_bill(models.Model):
     office_employee = models.ForeignKey(office_employee,on_delete=models.PROTECT,null=True)
     shope = models.ForeignKey(Shope,on_delete=models.PROTECT,null=True)
     vehicale_number = models.CharField(max_length=100)
+    total_vehicale_weight = models.IntegerField(null=True)
+    empty_vehicale_weight = models.IntegerField(null=True)
     weight = models.IntegerField()
     empty_box = models.IntegerField()
     wasteage = models.IntegerField()

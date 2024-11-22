@@ -42,6 +42,8 @@ def new_farmer_bill(request):
             farmer_id = request.POST.get('farmer_id')
             shope_id = e.shope.id
             vehicale_number = request.POST.get('vehicale_number')
+            total_vehicale_weight = request.POST.get('total_vehicale_weight')
+            empty_vehicale_weight = request.POST.get('empty_vehicale_weight')
             weight = request.POST.get('weight')
             empty_box = request.POST.get('empty_box')
             wasteage = request.POST.get('wasteage')
@@ -51,6 +53,8 @@ def new_farmer_bill(request):
             bill_number = Farmer_bill.objects.filter(shope_id=shope_id).count()
             bill_number += 1
             Farmer_bill(
+                total_vehicale_weight=total_vehicale_weight,
+                empty_vehicale_weight=empty_vehicale_weight,
                 farmer_id=farmer_id,
                 shope_id=shope_id,
                 office_employee_id=e.id,
