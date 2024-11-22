@@ -200,3 +200,14 @@ def profile(request):
         return render(request, 'office/profile.html', context)
     else:
         return redirect('login')
+
+def signature(request):
+    if request.session.has_key('office_mobile'):
+        mobile = request.session['office_mobile']
+        e = office_employee.objects.filter(mobile=mobile).first()
+        context={
+            'e':e,
+        }
+        return render(request, 'office/signature.html', context)
+    else:
+        return redirect('login')

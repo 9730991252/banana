@@ -98,7 +98,6 @@
 
     }
     </style>
-<div class="container">
     
     <div id="canvas">
         
@@ -162,15 +161,11 @@
             <div style="font-weight: 700;background-color: rgb(212, 249, 255);" class="div1 mb-3">एकुण रक्कम </div>
             <div style="font-weight: 700;background-color: rgb(212, 249, 255);" id="total_amount" class="div2 mb-3">{{bill.total_amount}}</div>
         </div>
+        </div>
+
+    <div id="total_amount_words">{{total_amount_words}}</div>
     </div>
 
-    <div id="total_amount_words">{{total_amount_words}}<div>
-
-</div>
-    
-
-
-</div>
 <br>
 <div class="text-center hide">
     <button class="btn btn-primary" onclick="createPDF()">download pdf</button>
@@ -182,7 +177,7 @@ function createPDF() {
         margin: 1,
         filename: '{{bill.farmer.name}}.pdf',
         image: { type: 'jpeg', quality: 50 },
-        html2canvas: { scale: 2 },
+        html2canvas: { scale: 4 },
         jsPDF: { unit: 'in', format: 'a4', orientaion: 'portrait' }
     };
     html2pdf().set(opt).from(pdf).save();
