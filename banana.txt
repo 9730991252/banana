@@ -33,6 +33,9 @@ virtualenv venv
 
 source venv/bin/activate
 
+************************************
+
+pip install num2words
 
 ****************migrations******
 python3 manage.py makemigrations

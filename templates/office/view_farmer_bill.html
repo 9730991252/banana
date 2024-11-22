@@ -19,7 +19,7 @@
 </style>
 <style>
     .main_box{
-        width: 400px;
+
         margin:  0 auto;
         text-align: center;
         color: black;
@@ -35,6 +35,7 @@
     .address{
         font-weight: 500;
         width: 380px;
+        margin: 0 auto;
     }
 
     .flex{
@@ -52,7 +53,13 @@
         display: grid;
         grid-template-columns: 2fr 1fr;
         border-top: 1px solid black;
-        
+        background-image: url("{% static 'img/new_banana.jpg' %}");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 400px;
+
+
+
         div{
             z-index: 321321;
         }
@@ -78,17 +85,26 @@
         }
         img{
             position: absolute;
-            opacity: 0.3;
-            width: 100%;
+            opacity: 0.5;
+            width: 400px;
             z-index: -533;
         }
     }
-</style>
-<div id="canvas">
+    #total_amount_words{
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 15px;
+        padding: 5px;
 
-
-
-    <div class="main_box">
+    }
+    </style>
+<div class="container">
+    
+    <div id="canvas">
+        
+        
+        
+        <div class="main_box">
         <div class="shope_name"><h5><b>{{e.shope.shope_name}}</b></h5></div>
         <div class="address"><p>{{e.shope.address}}</p></div>
         <div class="contact_details"><p>{{e.shope.contact_details}}</p></div>
@@ -104,28 +120,27 @@
         <div>{{bill.farmer.address}}</div>
         
         <div class="containt_box">
-            <!-- img src="{% static 'img/banana.jpg' %}" alt=" " -->
             
             <div class="div1 detail">तपशील</div>
             
             <div class="div1">गाडीचे एकुण वजन</div>
             <div class="div2">{{bill.total_vehicale_weight}}</div>
-
+            
             <div class="div1">रिकाम्या गाडीचे वजन</div>
             <div class="div2">{{bill.empty_vehicale_weight}}</div>
-
+            
             <div class="div1">मालाचे वजन </div>
             <div class="div2">{{bill.weight}}</div>
-
+            
             <div class="div1">मोकळे बॉक्स वजा </div>
             <div class="div2">{{bill.empty_box}}</div>
-
+            
             <div class="div1">मालाचे वजन </div>
             <div class="div2">{{empty_box_weight}}</div>
             
             <div class="div1">वेस्टेज </div>
             <div class="div2">{{bill.wasteage}}</div>
-
+            
             <div class="div1">मालाचे वजन </div>
             <div class="div2">{{wasteage_weight}}</div>
             
@@ -134,23 +149,25 @@
             
             <div class="div1">एकुण मालाचे वजन </div>
             <div class="div2">{{total_weight}}</div>
-
+            
             <div class="div1">दर </div>
             <div style="font-weight: 700; color: red;" class="div2">{{bill.prise}}</div>
-
+            
             <div class="div1">रक्कम </div>
             <div class="div2">{{amount}}</div>
             
             <div class="div1">लेबर वजा </div>
             <div style="font-weight: 700; color: red;"  class="div2">{{bill.labor_amount}}</div>
-
-            <div style="font-weight: 700;" class="div1 mb-3">एकुण रक्कम </div>
-            <div style="font-weight: 700;" class="div2 mb-3">{{bill.total_amount}}</div>
+            
+            <div style="font-weight: 700;background-color: rgb(212, 249, 255);" class="div1 mb-3">एकुण रक्कम </div>
+            <div style="font-weight: 700;background-color: rgb(212, 249, 255);" id="total_amount" class="div2 mb-3">{{bill.total_amount}}</div>
         </div>
     </div>
 
+    <div id="total_amount_words">{{total_amount_words}}<div>
 
-
+</div>
+    
 
 
 </div>
@@ -170,5 +187,6 @@ function createPDF() {
     };
     html2pdf().set(opt).from(pdf).save();
 }
+
 </script>
 {% endblock content %}

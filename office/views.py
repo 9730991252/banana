@@ -3,6 +3,7 @@ from sunil.models import *
 from owner.models import *
 from django.views.decorators.csrf import csrf_exempt
 import math
+from num2words import num2words
 # Create your views here.
 def office_home(request):
     if request.session.has_key('office_mobile'):
@@ -100,6 +101,8 @@ def view_farmer_bill(request, id):
         danda_weight = (wasteage_weight / 100) * 8
         total_weight = (wasteage_weight + danda_weight)
         amount = (bill.prise * math.floor(total_weight))
+        
+        total_amount_words = num2words(bill.total_amount)
         context={
             'e':e,
             'bill':bill,
@@ -107,7 +110,8 @@ def view_farmer_bill(request, id):
             'wasteage_weight':wasteage_weight,
             'danda_weight':danda_weight,
             'total_weight':total_weight,
-            'amount':amount
+            'amount':amount,
+            'total_amount_words':total_amount_words
         }
         return render(request, 'office/view_farmer_bill.html', context)
     else:
