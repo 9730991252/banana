@@ -13,11 +13,8 @@ sudo systemctl daemon-reload
 sudo systemctl restart banana.com.gunicorn
 exit
 
-cd banana
-git pull
-sudo systemctl daemon-reload
-sudo systemctl restart banana.com.gunicorn
-exit
+
+
 
 _______________________________________
 

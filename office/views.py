@@ -4,6 +4,7 @@ from owner.models import *
 from django.views.decorators.csrf import csrf_exempt
 import math
 from num2words import num2words
+from django.db.models import Avg, Sum, Min, Max
 # Create your views here.
 def office_home(request):
     if request.session.has_key('office_mobile'):
@@ -90,7 +91,7 @@ def farmer_bill(request):
         return render(request, 'office/farmer_bill.html', context)
     else:
         return redirect('login')
-    
+@csrf_exempt
 def view_farmer_bill(request, id):
     if request.session.has_key('office_mobile'):
         mobile = request.session['office_mobile']
@@ -101,8 +102,67 @@ def view_farmer_bill(request, id):
         danda_weight = (wasteage_weight / 100) * 8
         total_weight = (wasteage_weight + danda_weight)
         amount = (bill.prise * math.floor(total_weight))
-        
+        p = ''
         total_amount_words = num2words(bill.total_amount)
+        
+        signature = Signature.objects.filter(id=bill.office_employee.id).first()
+        total_credit = 0
+        total_pending_amount = bill.total_amount
+        
+        cash = Farmer_cash_transition.objects.filter(farmer_bill_id=bill.id)
+        for c in cash:
+            total_credit += c.amount
+            total_pending_amount -= c.amount
+            
+        p = Farmer_Phonepe_transition.objects.filter(farmer_bill_id=bill.id)
+        for p in p:
+            total_credit += p.amount
+            total_pending_amount -= p.amount
+            
+        b = Farmer_bank_transition.objects.filter(farmer_bill_id=bill.id)
+        for b in b:
+            total_credit += b.amount
+            total_pending_amount -= b.amount
+
+        if bill.paid_status == 0:
+            if total_pending_amount == 0:
+                bill.paid_status = 1
+                bill.save()
+                return redirect(f'/office/view_farmer_bill/{bill.id}')
+    
+        if 'save_cash_amount'in request.POST:
+            amount = request.POST.get('cash_amount')
+            Farmer_cash_transition(
+                shope_id=e.shope.id,
+                office_employee_id=e.id,
+                farmer_bill_id=bill.id,
+                amount=amount,
+            ).save()
+            return redirect(f'/office/view_farmer_bill/{bill.id}')
+        
+        if 'save_phonepe_amount'in request.POST:
+            mobile = request.POST.get('mobile')
+            amount = request.POST.get('amount')
+            Farmer_Phonepe_transition(
+                shope_id=e.shope.id,
+                office_employee_id=e.id,
+                farmer_bill_id=bill.id,
+                mobile=mobile,
+                amount=amount,
+            ).save()
+            return redirect(f'/office/view_farmer_bill/{bill.id}')
+        
+        if 'save_bank_amount'in request.POST:
+            bank_number = request.POST.get('bank_number')
+            amount = request.POST.get('amount')
+            Farmer_bank_transition(
+                shope_id=e.shope.id,
+                office_employee_id=e.id,
+                farmer_bill_id=bill.id,
+                bank_number=bank_number,
+                amount=amount,
+            ).save()
+            return redirect(f'/office/view_farmer_bill/{bill.id}')
         context={
             'e':e,
             'bill':bill,
@@ -111,11 +171,19 @@ def view_farmer_bill(request, id):
             'danda_weight':danda_weight,
             'total_weight':total_weight,
             'amount':amount,
-            'total_amount_words':total_amount_words
+            'total_amount_words':total_amount_words,
+            'signature':signature,
+            'cash':cash,
+            'phonepe_transition':Farmer_Phonepe_transition.objects.filter(farmer_bill_id=bill.id),
+            'bank_transition':Farmer_bank_transition.objects.filter(farmer_bill_id=bill.id),
+            'total_credit':total_credit,
+            'total_pending_amount':total_pending_amount,
         }
         return render(request, 'office/view_farmer_bill.html', context)
     else:
         return redirect('login')
+
+    
     
 def add_employee(request):
     if request.session.has_key('office_mobile'):
@@ -205,8 +273,29 @@ def signature(request):
     if request.session.has_key('office_mobile'):
         mobile = request.session['office_mobile']
         e = office_employee.objects.filter(mobile=mobile).first()
+        
+        s = Signature.objects.filter(office_employee_id=e.id).first()
+        if s == None:
+            s = ''
+        if 'add_signature'in request.POST:
+            image = request.FILES.get("image")
+            Signature(
+                office_employee_id=e.id,
+                image=image
+            ).save()
+            return redirect('signature')
+        if 'edit_signature'in request.POST:
+            image = request.FILES.get("image")
+            if image:
+                Signature(
+                    id=s.id,
+                    office_employee_id=e.id,
+                    image=image
+                ).save()
+                return redirect('signature')
         context={
             'e':e,
+            's':s
         }
         return render(request, 'office/signature.html', context)
     else:

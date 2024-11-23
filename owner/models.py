@@ -1,5 +1,6 @@
 from django.db import models
 from sunil.models import *
+from PIL import Image
 # Create your models here.
 class office_employee(models.Model):
     shope = models.ForeignKey(Shope,on_delete=models.PROTECT,null=True)
@@ -31,4 +32,41 @@ class Farmer_bill(models.Model):
     labor_amount = models.FloatField(null=True)
     date = models.DateField(auto_now_add=True)
     bill_number = models.IntegerField(null=True)
+    added_date = models.DateTimeField(auto_now_add=True)
+    
+class Signature(models.Model):
+    office_employee = models.ForeignKey(office_employee,on_delete=models.PROTECT,null=True)
+    image = models.ImageField(upload_to="chat_images",default="",null=True, blank=True) 
+    def save(self, *args,**kwargs):
+        super().save(*args,**kwargs)
+        image = Image.open(self.image.path)
+        print('image...',image)
+        output_size = (300,300)
+        image.thumbnail(output_size)
+        image.save(self.image.path)
+        
+class Farmer_cash_transition(models.Model):
+    shope = models.ForeignKey(Shope,on_delete=models.PROTECT,null=True)
+    office_employee = models.ForeignKey(office_employee,on_delete=models.PROTECT,null=True)
+    farmer_bill = models.ForeignKey(Farmer_bill,on_delete=models.PROTECT,null=True)
+    amount = models.FloatField()
+    date = models.DateField(auto_now_add=True)
+    added_date = models.DateTimeField(auto_now_add=True)
+
+class Farmer_Phonepe_transition(models.Model):
+    shope = models.ForeignKey(Shope,on_delete=models.PROTECT,null=True)
+    office_employee = models.ForeignKey(office_employee,on_delete=models.PROTECT,null=True)
+    farmer_bill = models.ForeignKey(Farmer_bill,on_delete=models.PROTECT,null=True)
+    mobile = models.IntegerField(null=True)
+    amount = models.FloatField()
+    date = models.DateField(auto_now_add=True)
+    added_date = models.DateTimeField(auto_now_add=True)
+
+class Farmer_bank_transition(models.Model):
+    shope = models.ForeignKey(Shope,on_delete=models.PROTECT,null=True)
+    office_employee = models.ForeignKey(office_employee,on_delete=models.PROTECT,null=True)
+    farmer_bill = models.ForeignKey(Farmer_bill,on_delete=models.PROTECT,null=True)
+    bank_number = models.IntegerField(null=True)
+    amount = models.FloatField()
+    date = models.DateField(auto_now_add=True)
     added_date = models.DateTimeField(auto_now_add=True)
