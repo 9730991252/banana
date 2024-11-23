@@ -314,12 +314,13 @@ function check_cash_amount(pending_amount){
 function createPDF() {
     var pdf = document.getElementById("canvas");
     var opt = {
-        margin: [5,0.5, 0.5, 0.5],
-        filename: '{{bill.farmer.name}}.pdf',
-        image: { type: 'jpeg', quality: 50 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'in', format: 'a4', orientaion: 'portrait' }
-    };
+            margin: [0, 0, 30, 0], //top, left, buttom, right,
+            filename: '{{bill.farmer.name}}.pdf',
+            image: {type: 'jpeg',quality: 0.98},
+            html2canvas: {dpi: 192, scale: 2, letterRendering: true},
+            pagebreak: {mode: 'avoid-all'},
+            jsPDF: {unit: 'pt', format: 'a4', orientation: 'portrait'}
+        };
     html2pdf().set(opt).from(pdf).save();
 }
 
