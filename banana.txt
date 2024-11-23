@@ -9,14 +9,14 @@ git pull
 source venv/bin/activate
 python3 manage.py makemigrations
 python3 manage.py migrate
-sudo systemctl daemon-reload
-sudo systemctl restart banana.com.gunicorn
+systemctl daemon-reload
+systemctl restart banana.com.gunicorn
 exit
 
 cd banana
 git pull
-sudo systemctl daemon-reload
-sudo systemctl restart banana.com.gunicorn
+systemctl daemon-reload
+systemctl restart banana.com.gunicorn
 exit
 
 
