@@ -86,7 +86,8 @@ def farmer_bill(request):
         e = office_employee.objects.filter(mobile=mobile).first()
         context={
             'e':e,
-            'bill':Farmer_bill.objects.filter(shope_id=e.shope.id).order_by('-id')
+            'bill':Farmer_bill.objects.filter(shope_id=e.shope.id).order_by('-id'),
+            'all_users':office_employee.objects.filter(shope_id=e.shope.id)
         }
         return render(request, 'office/farmer_bill.html', context)
     else:
