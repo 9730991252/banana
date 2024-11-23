@@ -314,7 +314,7 @@ function check_cash_amount(pending_amount){
 function createPDF() {
     var pdf = document.getElementById("canvas");
     var opt = {
-        margin: [1,0.5, 0.5, 0.5],
+        margin: [5,0.5, 0.5, 0.5],
         filename: '{{bill.farmer.name}}.pdf',
         image: { type: 'jpeg', quality: 50 },
         html2canvas: { scale: 2 },
