@@ -13,6 +13,11 @@ sudo systemctl daemon-reload
 sudo systemctl restart banana.com.gunicorn
 exit
 
+cd banana
+git pull
+sudo systemctl daemon-reload
+sudo systemctl restart banana.com.gunicorn
+exit
 
 
 
@@ -33,6 +38,9 @@ source venv/bin/activate
 ************************************
 
 pip install num2words
+
+***************************
+pip install pillow
 
 ****************migrations******
 python3 manage.py makemigrations
