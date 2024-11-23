@@ -221,7 +221,7 @@
         <label for="cash">Phonepe</label>
         <input type="number" name="mobile" placeholder="Phonepe Mobile" required>
     </div>
-    <div class="" style="display: flex;gap: 10px;">
+    <div class="" style="display: flex;gap: 10px;margin-top: 10px;">
         <input placeholder="रक्कम टाका" type="number" class="form-control" name="amount" id="phonepe_amount{{p.id}}" oninput="check_phonepe_amount('phonepe_amount{{p.id}}', 'phonepe_btn{{p.id}}', '{{total_pending_amount}}')">
         <div id="phonepe_btn{{p.id}}" style="display: none;" ><button name="save_phonepe_amount" class="btn btn-success"><i class="fa-solid fa-check"></i></button></div>
     </div>
@@ -234,8 +234,7 @@
         <label for="Bank">Bank</label>
         <input type="number" name="bank_number" placeholder="Bank Number" required>
     </div>
-    <div class="" style="display: flex;gap: 10px;">
-        <input type="number" name="bank_number" placeholder="Bank Number" required>
+    <div class="" style="display: flex;gap: 10px;margin-top: 10px;">
         <input placeholder="रक्कम टाका" type="number" class="form-control" name="amount" id="bank_amount{{b.id}}" oninput="check_bank_amount('bank_amount{{b.id}}', 'bank_btn{{b.id}}', '{{total_pending_amount}}')">
         <div id="bank_btn{{b.id}}" style="display: none;" ><button name="save_bank_amount" class="btn btn-success"><i class="fa-solid fa-check"></i></button></div>
     </div>
@@ -245,15 +244,15 @@
 
 <div class=" text-center p-3 border" id="transition_histry" style="display: grid;grid-template-columns: 2fr 1fr;">
     {% for c in cash %}
-        <div>Cash </div>
+        <div>Cash - {{c.added_date}}</div>
         <div><b>Rs.{{c.amount}}</b></div>
     {% endfor %}
     {% for p in phonepe_transition %}
-        <div>{{p.mobile}} </div>
+        <div>{{p.mobile}} - {{p.added_date}}</div>
         <div><b>Rs.{{p.amount}}</b></div>
     {% endfor %}
     {% for b in bank_transition %}
-        <div>{{b.bank_number}} </div>
+        <div>{{b.bank_number}} - {{b.added_date}}</div>
         <div><b>Rs.{{b.amount}}</b></div>
     {% endfor %}
     <div style="background-color: rgb(194, 255, 255); border-radius: 5px;">Total</div>
