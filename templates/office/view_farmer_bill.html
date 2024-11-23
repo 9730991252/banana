@@ -217,9 +217,11 @@
 
 <form method="POST">
 <div class="mb-3 mt-2 border p-3 text-center" style="background-color: hsl(236, 100%, 80%);">
-    <label for="cash">Phonepe</label>
     <div class="" style="display: flex;gap: 10px;">
+        <label for="cash">Phonepe</label>
         <input type="number" name="mobile" placeholder="Phonepe Mobile" required>
+    </div>
+    <div class="" style="display: flex;gap: 10px;">
         <input placeholder="रक्कम टाका" type="number" class="form-control" name="amount" id="phonepe_amount{{p.id}}" oninput="check_phonepe_amount('phonepe_amount{{p.id}}', 'phonepe_btn{{p.id}}', '{{total_pending_amount}}')">
         <div id="phonepe_btn{{p.id}}" style="display: none;" ><button name="save_phonepe_amount" class="btn btn-success"><i class="fa-solid fa-check"></i></button></div>
     </div>
@@ -228,7 +230,10 @@
 
 <form method="POST">
 <div class="mb-3 mt-2 border p-3 text-center" style="background-color: hsl(32, 100%, 80%);">
-    <label for="Bank">Bank</label>
+    <div class="" style="display: flex;gap: 10px;">
+        <label for="Bank">Bank</label>
+        <input type="number" name="bank_number" placeholder="Bank Number" required>
+    </div>
     <div class="" style="display: flex;gap: 10px;">
         <input type="number" name="bank_number" placeholder="Bank Number" required>
         <input placeholder="रक्कम टाका" type="number" class="form-control" name="amount" id="bank_amount{{b.id}}" oninput="check_bank_amount('bank_amount{{b.id}}', 'bank_btn{{b.id}}', '{{total_pending_amount}}')">
