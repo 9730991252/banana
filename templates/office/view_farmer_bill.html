@@ -57,6 +57,8 @@
     .contact_details{
         line-height: 0px;
         font-size: 20px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid black;
     }
     .containt_box{
         font-size: 20px;
@@ -91,6 +93,7 @@
             border-bottom: 1px solid black;
             border-right: 1px solid black;
             height: 40px;
+            font-weight: 700;
         }
         .detail{
             grid-column-start: 1;
@@ -119,16 +122,18 @@
         
         
         <div class="main_box" id="canvas">
+
+        <div class="text-center"><h5>शेतकरी खरेदी पावती</h5></div>
         <div class="shope_name">{{e.shope.shope_name}}</div>
         <div class="address"><p>{{e.shope.address}}</p></div>
-        <div class="contact_details"><p>{{e.shope.contact_details}}</p></div>
-        <div class="flex p-2" style="justify-content: space-between;">
+        <div class="contact_details"><b>{{e.shope.contact_details}}</b></div>
+        <div class="flex p-2 " style="justify-content: space-between;">
             <div>बिल नं. <b>{{bill.bill_number}}</b></div>
             <div>{{bill.added_date}}</div>
-            <div class="vehicale_number">{{bill.vehicale_number}}</div>
+            <div class="vehicale_number">गाडी नंबर  {{bill.vehicale_number}}</div>
         </div>
-        <div class="flex p-2" style="line-height: 0px; justify-content: space-between;">
-            <div><b>{{bill.farmer.name}}</b></div>
+        <div class="flex p-2" style="font-size: 20px; line-height: 0px; justify-content: space-between;">
+            <div>शेतकऱ्याचे नाव  <b> {{bill.farmer.name}}</b></div>
             <div><b>मोबा.नं. {{bill.farmer.mobile}}</b></div>
         </div>
         <div>{{bill.farmer.address}}</div>
@@ -185,9 +190,9 @@
             </div>
         </div>
 
-
-
-        
+        <div class="text-center mt-3">
+            <h6><a href="https://bookkaryalay.com/contact_us/" style="text-decoration: none;color: black;">सर्व प्रकारचे बारकोड व बिलिंग सॉफ्टवेअर तयार करून मिळतील &nbsp; 9730991252</a></h6>
+        </div>
         </div>
 
     
