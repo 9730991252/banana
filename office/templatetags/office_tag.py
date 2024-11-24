@@ -8,20 +8,25 @@ register = template.Library()
 @register.simple_tag()
 def user_pending_bill_amount(user_id):
     if user_id:
+        total_pending_amount = ''
+        
         bill = Farmer_bill.objects.filter(office_employee_id=user_id).aggregate(Sum('total_amount'))
         total_pending_amount = bill['total_amount__sum']
         
         c = Farmer_cash_transition.objects.filter(office_employee_id=user_id).aggregate(Sum('amount'))
         cash = c['amount__sum']
-        total_pending_amount -= cash
+        if cash:
+            total_pending_amount -= cash
         
         p = Farmer_Phonepe_transition.objects.filter(office_employee_id=user_id).aggregate(Sum('amount'))
         phonepe = p['amount__sum']
-        total_pending_amount -= phonepe
+        if phonepe:
+            total_pending_amount -= phonepe
         
         b = Farmer_bank_transition.objects.filter(office_employee_id=user_id).aggregate(Sum('amount'))
         bank = b['amount__sum']
-        total_pending_amount -= bank
+        if bank:
+            total_pending_amount -= bank
         
         if total_pending_amount == None:
             return 0
