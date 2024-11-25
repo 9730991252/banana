@@ -29,3 +29,8 @@ def login(request):
 def owner_logout(request):
     del request.session['owner_mobile']
     return redirect('/')
+
+def office_logout(request):
+    if request.session.has_key('office_mobile'):
+        del request.session['office_mobile']
+    return redirect('/')

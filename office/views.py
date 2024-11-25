@@ -65,7 +65,7 @@ def new_farmer_bill(request):
                 empty_box=empty_box,
                 wasteage=wasteage,
                 prise=prise,
-                total_amount=total_amount,
+                total_amount= math.floor(eval(total_amount)),
                 bill_number=bill_number,
                 labor_amount=labor_amount
             ).save()
