@@ -53,7 +53,7 @@ def new_farmer_bill(request):
             labor_amount = request.POST.get('labor')
             total_amount = request.POST.get('total_amount')
             bill_number = Farmer_bill.objects.filter(shope_id=shope_id).count()
-            bill_number += 1
+            bill_number += 1 
             Farmer_bill(
                 total_vehicale_weight=total_vehicale_weight,
                 empty_vehicale_weight=empty_vehicale_weight,
@@ -102,7 +102,7 @@ def view_farmer_bill(request, id):
         wasteage_weight = (empty_box_weight + bill.wasteage)
         danda_weight = (wasteage_weight / 100) * 8
         total_weight = (wasteage_weight + danda_weight)
-        amount = (bill.prise * math.floor(total_weight))
+        amount = math.floor(bill.prise * math.floor(total_weight))
         p = ''
         total_amount_words = num2words(bill.total_amount)
         

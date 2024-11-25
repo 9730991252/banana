@@ -178,8 +178,17 @@
     function add_empty_box(input_id, add_input_id){
         from_input = document.getElementById('weight').value;
         input = document.getElementById(input_id).value;
-        a = from_input - input
-        document.getElementById(add_input_id).value = a
+        if (Number(from_input) < Number(input)){
+            input = document.getElementById(input_id).value = 0
+        }
+        if (Number(from_input) == 0){
+            a = from_input - input
+            document.getElementById(add_input_id).value = a
+        }
+        else{
+            a = from_input - input
+            document.getElementById(add_input_id).value = a
+        }
     }
     function add_wasteage(old_weight,wasteage_input,add_input){
         from_input = document.getElementById(old_weight).value;
