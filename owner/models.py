@@ -36,7 +36,7 @@ class Farmer_bill(models.Model):
     
 class Signature(models.Model):
     office_employee = models.ForeignKey(office_employee,on_delete=models.PROTECT,null=True)
-    image = models.ImageField(upload_to="chat_images",default="",null=True, blank=True) 
+    image = models.ImageField(upload_to="images",default="",null=True, blank=True) 
     def save(self, *args,**kwargs):
         super().save(*args,**kwargs)
         image = Image.open(self.image.path)
