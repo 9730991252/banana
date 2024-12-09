@@ -60,11 +60,11 @@
     <form method="POST">    {% csrf_token %}
         <div class="farmer_name flex">
             <div><input width="100%" oninput="farmer_check()" id="farmer_name" value="{{farmer.name}}" name="name" type="text" class="form-control" placeholder="शेतकऱ्याचे नाव" required></div>
-            {% if selected_farmer_status != 0 %}<div><a href="/owner/farmer_bill/" class="text-danger"><b>X</b></a></div>{% endif %}
+            {% if selected_farmer_status != 0 %}<div><a href="/office/new_farmer_bill/" class="text-danger"><b>X</b></a></div>{% endif %}
         </div>
         <input oninput="farmer_check()" id="farmer_add" name="address" type="text" value="{{farmer.address}}" class="form-control mt-2" placeholder="पत्ता" required>
         <div class="flex" style="justify-content: space-between;">
-            <div><input oninput="farmer_check(), check_number()" id="farmer_mobile" value="{{farmer.mobile}}" name="mobile" type="text" class="form-control mt-2" placeholder="मोबाइल नंबर " required></div>
+            <div><input oninput="farmer_check(), check_number()" id="farmer_mobile" value="{{farmer.mobile}}" name="mobile" type="number" class="form-control mt-2" placeholder="मोबाइल नंबर " required></div>
             {% if selected_farmer_status == 0 %}<div id="add_farmer_btn"><button type="submit" class="btn btn-primary mt-2" name="add_farmer">जतन करा</button></div>{% endif %}
         </div>
     </form>

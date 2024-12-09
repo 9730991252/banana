@@ -70,3 +70,55 @@ class Farmer_bank_transition(models.Model):
     amount = models.FloatField()
     date = models.DateField(auto_now_add=True)
     added_date = models.DateTimeField(auto_now_add=True)
+    
+class Company(models.Model):
+    shope = models.ForeignKey(Shope,on_delete=models.PROTECT,null=True)
+    name = models.CharField(max_length=100)
+    status = models.IntegerField(default=1)
+    
+class Company_bill(models.Model):
+    shope = models.ForeignKey(Shope,on_delete=models.PROTECT,null=True)
+    company = models.ForeignKey(Company,on_delete=models.PROTECT,null=True)
+    farmer_bill = models.ForeignKey(Farmer_bill,on_delete=models.PROTECT,null=True)
+    product_cost_rate = models.FloatField()
+    product_cost_net_weight = models.FloatField()
+    product_cost_box = models.FloatField()
+    service_rate = models.FloatField()
+    service_net_weight = models.FloatField()
+    transport_rate = models.FloatField()
+    transport_box = models.FloatField()
+    stalk_rate = models.FloatField()
+    stalk_net_weight = models.FloatField()
+    wasteage_rate = models.FloatField()
+    wastage_weight = models.FloatField()
+    service_total_amount = models.FloatField()
+    wasteage_total_amount = models.FloatField()
+    product_cost_total_amount = models.FloatField()
+    stalk_total_amount = models.FloatField()
+    transport_total_amount = models.FloatField()
+    total_amount = models.FloatField( null=True)
+    company_bill_number = models.IntegerField(default=1)
+    date=models.DateField(auto_now_add=True, null=True)
+    added_date=models.DateTimeField(auto_now_add=True, null=True)
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
