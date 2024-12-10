@@ -10,13 +10,14 @@
 
 {% include 'include/office/office_menu.html' %}
 
+
+
 <style>
     .farmer_box{
         gap: 10px;
         border-collapse:collapse;
         border:1px solid #000000;
         margin-bottom: 10px;
-        padding: 10px;
         .flex{
             display:  flex;
             justify-content: space-evenly;
@@ -28,11 +29,12 @@
     {% for f  in farmer %}
     <div class="farmer_box">
         <div class="flex">
-            <div>{{f.name}}</div>
+            <div><b>{{f.name}}</b></div>
             <div>{{f.mobile}}</div>
         </div>
-        {% pendding_completed_farmer_bill f.id %}
+        {% farmer_bill_detail f.id %}
     </div>
+    <br><br>
     {% endfor %}
 </div>
 
