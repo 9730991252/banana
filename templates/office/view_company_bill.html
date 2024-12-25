@@ -196,7 +196,7 @@
     var pdf = document.getElementById("canvas");
     var opt = {
         margin: 0,
-        filename: '{{bill.farmer.name}} '+new Date().toLocaleString()+' .pdf',
+        filename: '{bill.company.name}} '+new Date().toLocaleString()+' .pdf',
         image: { type: 'jpeg', quality: 5000 },
         html2canvas: { scale: 1.5 },
         jsPDF: { unit: 'in', format: 'a4', orientaion: 'portrait' }

@@ -13,6 +13,7 @@ systemctl daemon-reload
 systemctl restart banana.com.gunicorn
 exit
 
+root
 cd banana
 git pull
 systemctl daemon-reload
