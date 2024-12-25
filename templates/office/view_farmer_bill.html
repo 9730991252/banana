@@ -336,7 +336,7 @@ function createPDF() {
     var pdf = document.getElementById("canvas");
     var opt = {
         margin: 0.5,
-        filename: '{{bill.farmer.name}}.pdf',
+        filename: '{{bill.farmer.name}} '+ new Date().toLocaleString() +' .pdf',
         image: { type: 'jpeg', quality: 50 },
         html2canvas: { scale: 2 },
         jsPDF: { unit: 'in', format: 'a4', orientaion: 'portrait' }
