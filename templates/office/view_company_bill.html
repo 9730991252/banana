@@ -119,7 +119,8 @@
     <div class="contact_details"><b>{{e.shope.contact_details}}</b></div>
     <div class="flex p-3 " style="justify-content: space-between;">
         <div>बिल नं. <b>{{bill.company_bill_number}}</b></div>
-        <div>{{bill.added_date}}</div>
+        <div><input onchange="save_date_company_bill()" style="border: none;" type="date" value="{{bill.date |date:'Y-m-d' }}" name="date" id="date"></div>
+
     </div>
     <div class="mb-3">To  <b> {{bill.company.name}}</b></div>
     
@@ -192,6 +193,20 @@
 </div>
 
 <script>
+    function save_date_company_bill(){
+        date = document.getElementById('date').value;
+        $.ajax({
+            type: 'GET',
+            url: '{% url "save_date_company_bill" %}',
+            data: {
+                'date': date,
+                'bill_id': '{{bill.id}}'
+            },
+            success: function(response){
+                console.log(response)
+            }
+        })
+    }
     function createPDF() {
     var pdf = document.getElementById("canvas");
     var opt = {

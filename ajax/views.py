@@ -89,3 +89,17 @@ def check_company(request):
         }
         t = render_to_string('ajax/office/check_company.html', context)
     return JsonResponse({'t': t,'status':status})
+
+def save_date_farmer_bill(request):
+    if request.method == 'GET':
+        bill_id = request.GET['bill_id']
+        date = request.GET['date']
+        Farmer_bill.objects.filter(id=bill_id).update(id=bill_id,date=date)
+    return JsonResponse({'status': 1})
+
+def save_date_company_bill(request):
+    if request.method == 'GET':
+        bill_id = request.GET['bill_id']
+        date = request.GET['date']
+        Company_bill.objects.filter(id=bill_id).update(id=bill_id,date=date)
+    return JsonResponse({'status': 1})

@@ -339,6 +339,11 @@ def view_farmer_bill(request, id):
                 amount=amount,
             ).save()
             return redirect(f'/office/view_farmer_bill/{bill.id}')
+        if 'chang_date'in request.POST:
+            date = request.POST.get('date')
+            bill.added_date = date
+            bill.save()
+            return redirect(f'/office/view_farmer_bill/{bill.id}')
         context={
             'e':e,
             'bill':bill,

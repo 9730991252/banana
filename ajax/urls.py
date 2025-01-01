@@ -6,4 +6,6 @@ urlpatterns = [
     path('select_bill/', views.select_bill, name='select_bill'),
     path('save_company/', views.save_company, name='save_company'),
     path('check_company/', views.check_company, name='check_company'),
+    path('save_date_farmer_bill/', views.save_date_farmer_bill, name='save_date_farmer_bill'),
+    path('save_date_company_bill/', views.save_date_company_bill, name='save_date_company_bill'),
 ]
