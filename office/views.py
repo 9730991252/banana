@@ -28,7 +28,7 @@ def office_home(request):
 def edit_company_bill(request, id):
     if request.session.has_key('office_mobile'):
         mobile = request.session['office_mobile']
-        e = office_employee.objects.filter(mobile=mobile).first()
+        e = office_employee.objects.filter(mobile=mobile, status=1).first()
         bill = Company_bill.objects.filter(id=id).first()
         if 'edit_company_bill'in request.POST:
             company_id = request.POST.get('company_id')
@@ -95,7 +95,7 @@ def edit_company_bill(request, id):
 def company_bill(request):
     if request.session.has_key('office_mobile'):
         mobile = request.session['office_mobile']
-        e = office_employee.objects.filter(mobile=mobile).first()
+        e = office_employee.objects.filter(mobile=mobile, status=1).first()
 
 
         context={
@@ -109,7 +109,7 @@ def company_bill(request):
 def view_company_bill(request, id):
     if request.session.has_key('office_mobile'):
         mobile = request.session['office_mobile']
-        e = office_employee.objects.filter(mobile=mobile).first()
+        e = office_employee.objects.filter(mobile=mobile, status=1).first()
         bill = Company_bill.objects.filter(id=id).first()
         total_amount_words = num2words(bill.total_amount)
 
@@ -128,7 +128,7 @@ def view_company_bill(request, id):
 def new_company_bill(request):
     if request.session.has_key('office_mobile'):
         mobile = request.session['office_mobile']
-        e = office_employee.objects.filter(mobile=mobile).first()
+        e = office_employee.objects.filter(mobile=mobile, status=1).first()
         if 'add_company_bill'in request.POST:
             shope_id = e.shope_id
             company_id = request.POST.get('company_id')
@@ -197,7 +197,7 @@ def new_company_bill(request):
 def new_farmer_bill(request):
     if request.session.has_key('office_mobile'):
         mobile = request.session['office_mobile']
-        e = office_employee.objects.filter(mobile=mobile).first()
+        e = office_employee.objects.filter(mobile=mobile, status=1).first()
         selected_farmer_status = 0
         farmer = ''
         if 'add_farmer'in request.POST:
@@ -263,7 +263,7 @@ def new_farmer_bill(request):
 def farmer_bill(request):
     if request.session.has_key('office_mobile'):
         mobile = request.session['office_mobile']
-        e = office_employee.objects.filter(mobile=mobile).first()
+        e = office_employee.objects.filter(mobile=mobile, status=1).first()
         context={
             'e':e,
             'bill':Farmer_bill.objects.filter(shope_id=e.shope.id).order_by('-id'),
@@ -276,7 +276,7 @@ def farmer_bill(request):
 def view_farmer_bill(request, id):
     if request.session.has_key('office_mobile'):
         mobile = request.session['office_mobile']
-        e = office_employee.objects.filter(mobile=mobile).first()
+        e = office_employee.objects.filter(mobile=mobile, status=1).first()
         bill = Farmer_bill.objects.filter(id=id).first()
         empty_box_weight = (bill.weight - bill.empty_box)
         wasteage_weight = (empty_box_weight + bill.wasteage)
@@ -374,7 +374,7 @@ def view_farmer_bill(request, id):
 def add_employee(request):
     if request.session.has_key('office_mobile'):
         mobile = request.session['office_mobile']
-        e = office_employee.objects.filter(mobile=mobile).first()
+        e = office_employee.objects.filter(mobile=mobile, status=1).first()
         if e:
             if 'Add_employee'in request.POST:
                 name = request.POST.get('name')
@@ -430,7 +430,7 @@ def add_employee(request):
 def profile(request):
     if request.session.has_key('office_mobile'):
         mobile = request.session['office_mobile']
-        e = office_employee.objects.filter(mobile=mobile).first()
+        e = office_employee.objects.filter(mobile=mobile, status=1).first()
         if e:
             if 'edit_profile'in request.POST:
                 shope_name = request.POST.get('shope_name')
@@ -458,7 +458,7 @@ def profile(request):
 def signature(request):
     if request.session.has_key('office_mobile'):
         mobile = request.session['office_mobile']
-        e = office_employee.objects.filter(mobile=mobile).first()
+        e = office_employee.objects.filter(mobile=mobile, status=1).first()
         
         s = Signature.objects.filter(office_employee_id=e.id).first()
         if s == None:
@@ -490,7 +490,7 @@ def signature(request):
 def farmer(request):
     if request.session.has_key('office_mobile'):
         mobile = request.session['office_mobile']
-        e = office_employee.objects.filter(mobile=mobile).first()
+        e = office_employee.objects.filter(mobile=mobile, status=1).first()
         context={
             'e':e,
             'farmer':Farmer.objects.filter(shope_id=e.shope.id).order_by('name'),
