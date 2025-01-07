@@ -7,7 +7,12 @@ import math
 def owner_home(request):
     if request.session.has_key('owner_mobile'):
         mobile = request.session['owner_mobile']
-        shope = Shope.objects.filter(mobile=mobile).first()
+        shope = Shope.objects.filter(mobile=mobile, status=1).first()
+        if shope:
+            pass
+        else:
+            del request.session['owner_mobile']
+            return redirect('login')
         context={
             'shope':shope
         }

@@ -9,7 +9,12 @@ from django.db.models import Avg, Sum, Min, Max
 def office_home(request):
     if request.session.has_key('office_mobile'):
         mobile = request.session['office_mobile']
-        e = office_employee.objects.filter(mobile=mobile).first()
+        e = office_employee.objects.filter(mobile=mobile, status=1).first()
+        if e:
+            pass
+        else:
+            del request.session['office_mobile']
+            return redirect('login')
         context={
             'e':e,
             'bill':Farmer_bill.objects.filter(id=31).first(),
